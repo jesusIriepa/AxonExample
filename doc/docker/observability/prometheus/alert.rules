@@ -1,0 +1,24 @@
+groups:
+  - name: example
+    rules:
+      - record: systems:cpu_percentage_usage
+        expr: 100 - (avg by (instance) (irate(node_cpu_seconds_total{mode="idle"}[1m])) * 100)
+
+      - record: systems:instance_down
+        expr: up
+
+      - alert: HighCPUUsage
+        expr: systems:cpu_percentage_usage > 30
+        for: 5m
+        labels:
+          severity: page
+        annotations:
+          summary: High CPU Usage
+
+      - alert: InstanceDown
+        expr: systems:instance_down == 0
+        for: 5m
+        labels:
+          severity: page
+        annotations:
+          summary: High CPU Usage

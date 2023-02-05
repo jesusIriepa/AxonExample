@@ -1,0 +1,28 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: Axon Demo Query
+  jpa:
+    generate-ddl: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+        ddl-auto: update
+
+  # spring data - postgres configuration
+  datasource:
+    initialization-mode: always
+    platform: postgres
+    url: jdbc:postgresql://localhost:5432/axontestquery
+    username: postgres
+    password: password
+
+
+axon:
+  eventhandling:
+    processors:
+      amqpEvents:
+        source: myQueueMessageSource
+        mode: SUBSCRIBING

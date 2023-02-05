@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: Axon Demo
+  profiles:
+    acitive: command, query
+
+  # Rabbit MQ configuration
+  rabbitmq:
+    host: "localhost"
+    port: 5672
+    username: "rabbitUser"
+    password: "rabbitPass"
+
+axon:
+  axonserver:
+    enabled: false
+  amqp:
+    exchange: test_direct_exchange
+    transaction-mode: transactional
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus

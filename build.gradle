@@ -1,0 +1,46 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '2.7.6'
+    id 'io.spring.dependency-management' version '1.0.15.RELEASE'
+}
+
+group = 'com.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    // MAIN
+    // ** spring-boot
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.boot:spring-boot-starter-amqp'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'org.springframework.boot:spring-boot-starter-actuator'
+    // observability
+    implementation 'io.micrometer:micrometer-registry-prometheus'
+    // ** postgres
+    runtimeOnly 'org.postgresql:postgresql'
+    // ** axon
+    implementation 'org.axonframework:axon-spring-boot-starter:4.6.2'
+    implementation 'org.axonframework.extensions.amqp:axon-amqp-spring-boot-autoconfigure:4.6.0'
+    // ** lombok
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    // TEST
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    // ** axon
+    testImplementation group: 'org.axonframework', name: 'axon-test', version: '4.6.2'
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
